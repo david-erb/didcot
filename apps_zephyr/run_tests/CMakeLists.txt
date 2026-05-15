@@ -1,0 +1,46 @@
+cmake_minimum_required(VERSION 3.20.0)
+
+set(CONF_FILE
+  "${CMAKE_CURRENT_SOURCE_DIR}/prj.conf"
+  "${CMAKE_CURRENT_SOURCE_DIR}/../DTMC_ZEPHYR_SYSTEM_COMMON.conf"
+)
+
+find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE})
+
+project(app_zephyr)
+
+include(${CMAKE_CURRENT_LIST_DIR}/../../dthelpers.cmake)
+dthelpers_resolve(DIDCOT_DIR didcot "didcot repo directory")
+dthelpers_resolve(DTMC_BASE_DIR dtmc_base "dtmc_base repo directory")
+dthelpers_resolve(DTMC_ZEPHYR_DIR dtmc_zephyr "dtmc_zephyr repo directory")
+dthelpers_resolve(DTMC_SERVICES_DIR dtmc_services "dtmc_services repo directory")
+dthelpers_resolve(DTCORE_DIR dtcore "dtcore repo directory")
+
+add_subdirectory(${DIDCOT_DIR}/didcot_tests                  ${CMAKE_BINARY_DIR}/didcot_tests)
+add_subdirectory(${DIDCOT_DIR}/didcot_library                ${CMAKE_BINARY_DIR}/didcot_library)
+add_subdirectory(${DTMC_ZEPHYR_DIR}/dtmc_zephyr_library      ${CMAKE_BINARY_DIR}/dtmc_zephyr_library)
+add_subdirectory(${DTMC_BASE_DIR}/dtmc_base_library          ${CMAKE_BINARY_DIR}/dtmc_base_library)
+add_subdirectory(${DTMC_SERVICES_DIR}/dtmc_services_library  ${CMAKE_BINARY_DIR}/dtmc_services_library)
+add_subdirectory(${DTCORE_DIR}/dtcore_library                ${CMAKE_BINARY_DIR}/dtcore_library)
+
+target_include_directories(app PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
+    ${DIDCOT_DIR}/didcot_tests/include
+    ${DIDCOT_DIR}/didcot_library/include
+    ${DTMC_ZEPHYR_DIR}/dtmc_zephyr_library/include
+    ${DTMC_BASE_DIR}/dtmc_base_library/include
+    ${DTMC_SERVICES_DIR}/dtmc_services_library/include
+    ${DTCORE_DIR}/dtcore_library/include
+)
+
+target_sources(app PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/main.c
+)
+
+target_link_libraries(app PRIVATE
+    didcot_tests
+    didcot_library
+    dtmc_base_library
+    dtmc_services_library
+    dtcore_library
+)

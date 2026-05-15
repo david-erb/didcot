@@ -1,0 +1,117 @@
+body {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-color: #10121a;
+    color: #b0bcd0;
+    margin: 10px;
+    border: 2px solid #202840;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+h1 {
+    color: #6080a8;
+    margin-top: 0;
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border-bottom: 1px solid #202840;
+    padding-bottom: 6px;
+    margin-bottom: 14px;
+}
+
+a {
+    color: #5a8ab0;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #80aad0;
+    text-decoration: underline;
+}
+
+td {
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+#status {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    color: #4a8860;
+    margin-bottom: 14px;
+}
+
+#trendChart {
+    width: 100%;
+    height: 400px;
+    margin-bottom: 16px;
+    background: #0b0d13;
+    border: 1px solid #202840;
+    border-radius: 4px;
+    padding: 6px;
+    box-sizing: border-box;
+}
+
+.scanlist-view {
+    background: #14172080;
+    padding: 12px;
+    border-radius: 4px;
+    border: 1px solid #202840;
+}
+
+.scanlist-summary {
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: #506078;
+}
+
+.scanlist-summary strong {
+    color: #7090a8;
+    font-weight: normal;
+}
+
+.scanlist-table {
+    border-collapse: collapse;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 12px;
+}
+
+.scanlist-table th {
+    background: #0f1118;
+    color: #506078;
+    font-weight: normal;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border: 1px solid #202840;
+    padding: 4px 10px;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.scanlist-table td {
+    border: 1px solid #1a2030;
+    padding: 3px 10px;
+    text-align: right;
+    white-space: nowrap;
+    color: #78c090;
+}
+
+.scanlist-table th:first-child,
+.scanlist-table td:first-child {
+    text-align: left;
+}
+
+.scanlist-table td:first-child {
+    color: #506078;
+}
+
+.scanlist-table tbody tr:hover td {
+    background: #1a2030;
+}

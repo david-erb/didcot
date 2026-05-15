@@ -1,0 +1,23 @@
+cmake_minimum_required(VERSION 3.20)
+project(run_tests C)
+
+include(${CMAKE_CURRENT_LIST_DIR}/../../dthelpers.cmake)
+dthelpers_resolve(DIDCOT_DIR        didcot        "didcot repo directory")
+dthelpers_resolve(DTMC_SERVICES_DIR dtmc_services "dtmc_services repo directory")
+dthelpers_resolve(DTMC_BASE_DIR     dtmc_base     "dtmc_base repo directory")
+dthelpers_resolve(DTMC_LINUX_DIR    dtmc_linux    "dtmc_linux repo directory")
+dthelpers_resolve(DTCORE_DIR        dtcore         "dtcore repo directory")
+
+add_subdirectory(${DIDCOT_DIR}/didcot_library                ${CMAKE_BINARY_DIR}/didcot_library)
+add_subdirectory(${DTMC_SERVICES_DIR}/dtmc_services_library  ${CMAKE_BINARY_DIR}/dtmc_services_library)
+add_subdirectory(${DTMC_BASE_DIR}/dtmc_base_library          ${CMAKE_BINARY_DIR}/dtmc_base_library)
+add_subdirectory(${DTMC_LINUX_DIR}/dtmc_linux_library        ${CMAKE_BINARY_DIR}/dtmc_linux_library)
+add_subdirectory(${DTCORE_DIR}/dtcore_library                ${CMAKE_BINARY_DIR}/dtcore_library)
+
+add_executable(app src/main.c src/parser.c src/main_httpd.c src/main_adc.c src/main_websocket.c)
+
+target_link_libraries(app
+    PRIVATE
+        didcot_library
+        dtmc_services_library
+)
