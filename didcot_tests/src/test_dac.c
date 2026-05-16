@@ -55,12 +55,31 @@ cleanup:
     return dterr;
 }
 
+static bool
+test_didcot_dac_wait_for_fast_writes(dtmcp4728_dummy_t* dac_hw,
+  int32_t minimum_fast_write_count,
+  dtruntime_milliseconds_t timeout_milliseconds)
+{
+    dtruntime_milliseconds_t deadline = dtruntime_now_milliseconds() + timeout_milliseconds;
+
+    while (dac_hw->fast_write_call_count < minimum_fast_write_count)
+    {
+        if (dtruntime_now_milliseconds() >= deadline)
+            return false;
+
+        dtruntime_sleep_milliseconds(5);
+    }
+
+    return true;
+}
+
 // --------------------------------------------------------------------------------------------
 // Entrypoint runs, fires several intervals, stops cleanly on didcot_dac_stop().
 //
-// Starts didcot_dac_entrypoint in a task, waits for it to signal ready, sleeps
-// long enough for at least 3 interval callbacks, then calls didcot_dac_stop().
-// Verifies the task exits cleanly and that the dummy records the expected calls.
+// Starts didcot_dac_entrypoint in a task, waits for it to signal ready, then
+// waits until at least 3 interval callbacks have actually reached the hardware
+// before calling didcot_dac_stop(). Verifies the task exits cleanly and that the
+// dummy records the expected calls.
 
 static dterr_t*
 test_didcot_dac_entrypoint_stop(void)
@@ -97,8 +116,7 @@ test_didcot_dac_entrypoint_stop(void)
     // blocks until didcot_dac_entrypoint calls dttasker_ready()
     DTERR_C(dttasker_start(task));
 
-    // let several 10ms intervals fire
-    dtruntime_sleep_milliseconds(60);
+    DTUNITTEST_ASSERT_TRUE(test_didcot_dac_wait_for_fast_writes(dac_hw, 3, 250));
 
     didcot_dac_stop(dac);
 
@@ -158,7 +176,7 @@ test_didcot_dac_dtservices_stop(void)
 
     DTERR_C(dtservices_start(services));
 
-    dtruntime_sleep_milliseconds(60);
+    DTUNITTEST_ASSERT_TRUE(test_didcot_dac_wait_for_fast_writes(dac_hw, 3, 250));
 
     bool should_stop = false;
     DTERR_C(dtservices_poll(services, &should_stop));
