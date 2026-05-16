@@ -19,7 +19,7 @@ jobs:
         with:
           submodules: recursive
       - name: Run
-        run: bash scripts/ci_linux.sh ${{ matrix.app }}
+        run: bash .github/scripts/ci_linux.sh ${{ matrix.app }}
       - name: Upload coverage
         if: matrix.app == 'run_tests'
         uses: codecov/codecov-action@v4
@@ -39,7 +39,7 @@ jobs:
         with:
           submodules: recursive
       - name: Run
-        run: bash scripts/ci_espidf.sh ${{ matrix.app }}
+        run: bash .github/scripts/ci_espidf.sh ${{ matrix.app }}
 
   zephyr:
     runs-on: ubuntu-latest
@@ -54,4 +54,4 @@ jobs:
         with:
           submodules: recursive
       - name: Run
-        run: bash scripts/ci_zephyr.sh ${{ matrix.app }}
+        run: bash .github/scripts/ci_zephyr.sh ${{ matrix.app }}

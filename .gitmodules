@@ -16,3 +16,21 @@
 [submodule "submodules/dtmc_espidf"]
 	path = submodules/dtmc_espidf
 	url = git@github.com:david-erb/dtmc_espidf
+[submodule "apps/submodules/dtcore"]
+	path = apps/submodules/dtcore
+	url = git@github.com:david-erb/dtcore
+[submodule "apps/submodules/dtmc_base"]
+	path = apps/submodules/dtmc_base
+	url = git@github.com:david-erb/dtmc_base
+[submodule "apps/submodules/dtmc_services"]
+	path = apps/submodules/dtmc_services
+	url = git@github.com:david-erb/dtmc_services
+[submodule "apps/submodules/dtmc_linux"]
+	path = apps/submodules/dtmc_linux
+	url = git@github.com:david-erb/dtmc_linux
+[submodule "apps/submodules/dtmc_zephyr"]
+	path = apps/submodules/dtmc_zephyr
+	url = git@github.com:david-erb/dtmc_zephyr
+[submodule "apps/submodules/dtmc_espidf"]
+	path = apps/submodules/dtmc_espidf
+	url = git@github.com:david-erb/dtmc_espidf

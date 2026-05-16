@@ -2,8 +2,8 @@
 set -euo pipefail
 
 APP=$1
-REPO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
-APP_DIR="$REPO_DIR/apps_zephyr/$APP"
+REPO_DIR="$(cd "$(dirname "$0")/../.." && pwd)"
+APP_DIR="$REPO_DIR/apps/zephyr/$APP"
 
 echo "REPO_DIR: $REPO_DIR"
 

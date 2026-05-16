@@ -4,9 +4,10 @@
 # Requires submodule directory to exist under submodules/ relative to this file, then sets VAR_NAME to its path.
 
 function(dthelpers_resolve var_name submodule_name help_text)
-    get_filename_component(_self_name "${CMAKE_CURRENT_FUNCTION_LIST_DIR}" NAME)
-    if("${submodule_name}" STREQUAL "${_self_name}")
-        set(_submodule_path "${CMAKE_CURRENT_FUNCTION_LIST_DIR}")
+    get_filename_component(_repo_root "${CMAKE_CURRENT_FUNCTION_LIST_DIR}/.." ABSOLUTE)
+    get_filename_component(_repo_name "${_repo_root}" NAME)
+    if("${submodule_name}" STREQUAL "${_repo_name}")
+        set(_submodule_path "${_repo_root}")
     else()
         set(_submodule_path "${CMAKE_CURRENT_FUNCTION_LIST_DIR}/submodules/${submodule_name}")
     endif()
